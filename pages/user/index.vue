@@ -4,6 +4,7 @@
 
 <script setup lang="ts">
 import List from '@/conponents/user/list.vue'
+definePageMeta({ middleware: ['authenticated'] })
 
 const { fetchUser, removeUser, user, isLoading } = useUser()
 

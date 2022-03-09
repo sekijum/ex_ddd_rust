@@ -8,9 +8,6 @@ async function beforeRouting(to: RouteLocationNormalized, from: RouteLocationNor
     store.state.currentUser = response.data
   }
 
-  if (to.name != 'signup' && !store.state.currentUser) {
-    return { name: 'signup' }
-  }
   return
 }
 

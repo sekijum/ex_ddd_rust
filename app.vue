@@ -1,6 +1,5 @@
 <template>
   <div>
-    <button @click="go">遷移するよ</button>
     <button v-if="store.state.currentUser" @click="signout">サインアウト</button>
     <button v-if="!store.state.currentUser" @click="signin">サインイン</button>
     <q-layout view="hHh Lpr lff" container style="height: 1300px" class="shadow-2 rounded-borders">

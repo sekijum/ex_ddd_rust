@@ -5,6 +5,7 @@
 </template>
 <script setup lang="ts">
 import List from '@/conponents/post/list.vue'
+definePageMeta({ middleware: ['authenticated'] })
 
 const { fetchPosts, posts } = usePosts()
 const { removePost, isLoading } = usePost()

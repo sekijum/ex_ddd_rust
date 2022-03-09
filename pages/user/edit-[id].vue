@@ -7,6 +7,7 @@
 <script setup lang="ts">
 import UpdateForm from '@/conponents/user/form.vue'
 import { omit } from 'lodash'
+definePageMeta({ middleware: ['authenticated'] })
 
 const { fetchUser, saveUser, user } = useUser()
 

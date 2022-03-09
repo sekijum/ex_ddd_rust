@@ -29,7 +29,7 @@
 
       <div class="field is-grouped">
         <div class="control">
-          <button class="button is-link">SignIn</button>
+          <button class="button is-link">signin</button>
         </div>
       </div>
     </Form>
@@ -37,11 +37,11 @@
 </template>
 <script setup lang="ts">
 import { Field, Form, ErrorMessage } from 'vee-validate'
-import { ISignIn } from '@/models/session'
+import { ISignin } from '@/models/session'
 
 const { schema } = useSessionValidate()
 
 defineProps<{
-  form: ISignIn
+  form: ISignin
 }>()
 </script>

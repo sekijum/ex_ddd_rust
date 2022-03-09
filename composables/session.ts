@@ -2,11 +2,11 @@ import * as yup from 'yup'
 import api from '@/api'
 import identityManager from '@/identity-manager'
 import { IUser } from '@/models/user'
-import { ISignIn } from '@/models/session'
+import { ISignin } from '@/models/session'
 
 export const useSession = () => {
-  const signIn = async (form: ISignIn) => {
-    const response = await api.post<any>('/sessions/signIn', form).catch((error) => {
+  const signin = async (form: ISignin) => {
+    const response = await api.post<any>('/sessions/signin', form).catch((error) => {
       if (error.response.status === 401) {
         return error.response.data
       }
@@ -29,7 +29,7 @@ export const useSession = () => {
   }
 
   return {
-    signIn,
+    signin,
     currentUser,
   }
 }
