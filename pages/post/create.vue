@@ -6,7 +6,6 @@
 <script setup lang="ts">
 import CreateForm from '@/conponents/post/form.vue'
 import { TPostForm } from '@/models/post'
-definePageMeta({ middleware: ['authenticated'] })
 
 const { savePost } = usePost()
 

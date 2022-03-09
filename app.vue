@@ -48,10 +48,10 @@ const router = useRouter()
 const signout = () => {
   store.state.currentUser = null
   identityManager.clearCredentials()
-  router.push({ name: 'signin' })
+  router.go({ name: 'signin', force: true })
 }
 const signin = () => {
-  router.push({ name: 'user' })
+  router.go({ name: 'user', force: true })
 }
 
 const drawer = ref(false)

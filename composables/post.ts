@@ -34,13 +34,15 @@ export const usePost = () => {
   }
 
   const savePost = async (params: TPostForm) => {
-    id
-      ? await api.put(`/post/${id}`, params).catch((error) => {
-          console.error(error)
-        })
-      : await api.post('/post', params).catch((error) => {
-          console.error(error)
-        })
+    await Promise.all([
+      id
+        ? api.put(`/post/${id}`, params).catch((error) => {
+            console.error(error)
+          })
+        : api.post('/post', params).catch((error) => {
+            console.error(error)
+          }),
+    ])
   }
 
   const removePost = async (id) => {
