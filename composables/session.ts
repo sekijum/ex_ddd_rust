@@ -1,22 +1,25 @@
 import * as yup from 'yup'
-import api from '@/api.1'
+import api from '@/api'
 import identityManager from '@/identity-manager'
 import { IUser } from '@/models/user'
+import { ISignIn } from '@/models/session'
 
 export const useSession = () => {
-  const signUp = async (form) => {
-    const response = await api.post<any>('/sessions/signUp', form).catch((error) => {
+  const signIn = async (form: ISignIn) => {
+    const response = await api.post<any>('/sessions/signIn', form).catch((error) => {
       if (error.response.status === 401) {
         return error.response.data
       }
     })
-    if (response.message) {
-      return response.message
-    }
+
+    if (response.message) return response.message
+
+    const token = response.data.access_token
     identityManager.tokenSet = {
-      token: response.data.access_token,
+      token,
       expire: response.data.expires_in,
     }
+
     return
   }
 
@@ -26,7 +29,7 @@ export const useSession = () => {
   }
 
   return {
-    signUp,
+    signIn,
     currentUser,
   }
 }

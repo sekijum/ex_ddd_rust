@@ -1,29 +1,56 @@
-type Method = 'POST' | 'GET' | 'PUT' | 'DELETE'
-type Path = string
+import axios from 'axios'
+import identityManager from '@/identity-manager'
 
-const succeed = <T>(a: T) => ({
-  type: 'succeeded' as const,
-  data: a,
+const api = axios.create({
+  baseURL: 'http://localhost:8000/api/v1',
+  headers: {
+    'Access-Control-Allow-Origin': '*',
+    'Accept': 'application/json',
+  },
 })
 
-const fail = <T>(a: T) => ({
-  type: 'failed' as const,
-  data: a,
-})
-
-const api = async (method: Method, path: Path, params?) => {
-  const ctx = useRuntimeConfig()
-  const endpoint = ctx.ApibaseUrl
-
-  const { data, error } = await useFetch(endpoint + path, {
-    method: method,
-    params,
-  })
-  try {
-    return succeed<any>(await data.value)
-  } catch (error) {
-    return fail(error)
+api.interceptors.request.use(function (config) {
+  const headers: { Authorization?: string; Pragma: string } = {
+    Pragma: 'no-cache',
   }
-}
+  if (identityManager.accessToken) {
+    headers.Authorization = `Bearer ${identityManager.accessToken.token}`
+  }
+  return { ...config, headers }
+})
+
+api.interceptors.response.use(
+  function (response) {
+    return response
+  },
+  async function (error) {
+    const router = useRouter()
+    const originalRequest = error.config
+
+    if (
+      error.response.status === 401 &&
+      error.response.data.message === 'Token has expired' &&
+      !originalRequest._retry
+    ) {
+      originalRequest._retry = true
+      const response = await api.get('/sessions/refresh')
+
+      if (response.status === 200) {
+        identityManager.clearCredentials()
+        const token = response.data.access_token
+        identityManager.tokenSet = {
+          token,
+          expire: response.data.expires_in,
+        }
+        return api.request(originalRequest)
+      } else {
+        identityManager.clearCredentials()
+        return router.push({ name: 'signin' })
+      }
+    }
+
+    return Promise.reject(error)
+  }
+)
 
 export default api

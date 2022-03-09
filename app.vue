@@ -1,7 +1,8 @@
 <template>
   <div>
+    <button @click="go">遷移するよ</button>
     <button v-if="store.state.currentUser" @click="signout">サインアウト</button>
-    <button v-if="!store.state.currentUser" @click="signup">サインイン</button>
+    <button v-if="!store.state.currentUser" @click="signin">サインイン</button>
     <q-layout view="hHh Lpr lff" container style="height: 1300px" class="shadow-2 rounded-borders">
       <q-drawer
         v-model="drawer"
@@ -48,9 +49,9 @@ const router = useRouter()
 const signout = () => {
   store.state.currentUser = null
   identityManager.clearCredentials()
-  router.push({ name: 'signup' })
+  router.push({ name: 'signin' })
 }
-const signup = () => {
+const signin = () => {
   router.push({ name: 'user' })
 }
 

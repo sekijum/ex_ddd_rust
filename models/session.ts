@@ -1,4 +1,4 @@
-export interface ISignup {
+export interface ISignIn {
   email: string
   password: string
 }

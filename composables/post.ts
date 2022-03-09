@@ -1,5 +1,5 @@
 import * as yup from 'yup'
-import api from '@/api.1'
+import api from '@/api'
 import { IPost, TPostForm } from '@/models/post'
 
 export const usePosts = () => {

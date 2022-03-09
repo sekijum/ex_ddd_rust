@@ -1,4 +1,4 @@
-export interface ITokenSet {
+export interface IToken {
   token: string
   expire: number
 }
@@ -6,7 +6,7 @@ export interface ITokenSet {
 export class IdentityManager {
   private tokenSetLocalStorageKey = 'credentials'
 
-  public set tokenSet(tokenSet: ITokenSet | undefined) {
+  public set tokenSet(tokenSet: IToken | undefined) {
     const key = this.tokenSetLocalStorageKey
     const tokenSetJSON = JSON.stringify(tokenSet)
 
@@ -14,15 +14,22 @@ export class IdentityManager {
     sessionStorage.setItem(key, tokenSetJSON)
   }
 
-  public get tokenSet(): ITokenSet | undefined {
+  public get tokenSet(): IToken | undefined {
     const key = this.tokenSetLocalStorageKey
     const tokenSetJSON = sessionStorage.getItem(key) || localStorage.getItem(key)
 
     if (!tokenSetJSON) undefined
 
-    const tokenSetObject: ITokenSet = JSON.parse(tokenSetJSON)
+    const tokenSetObject: IToken = JSON.parse(tokenSetJSON)
 
     return tokenSetObject
+  }
+
+  public get accessToken(): IToken | undefined {
+    if (!this.tokenSet) {
+      return undefined
+    }
+    return this.tokenSet
   }
 
   public clearCredentials() {

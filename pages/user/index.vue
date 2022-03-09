@@ -1,22 +1,19 @@
 <template>
-  <div>
-    <List :items="users" :isLoading="isLoading" @onRemove="onRemove" />
-  </div>
+  <List :item="user" />
 </template>
+
 <script setup lang="ts">
 import List from '@/conponents/user/list.vue'
 
-const { fetchUsers, users } = useUsers()
-const { removeUser, isLoading } = useUser()
+const { fetchUser, removeUser, user, isLoading } = useUser()
 
 onMounted(async () => {
-  await console.log('this is user page.')
-  await fetchUsers()
+  await fetchUser()
 })
 
 const onRemove = async (id: number) => {
   await removeUser(id)
   isLoading.value = false
-  await fetchUsers()
+  await fetchUser()
 }
 </script>

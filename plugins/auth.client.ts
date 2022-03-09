@@ -1,16 +1,14 @@
 import { RouteLocationNormalized } from 'vue-router'
-import identityManager from '@/identity-manager'
-import api from '@/api.1'
+import api from '@/api'
 import store from '@/store'
 
 async function beforeRouting(to: RouteLocationNormalized, from: RouteLocationNormalized) {
-  const response = await api.get('/sessions/currentUser').catch((error) => {
-    console.error(error)
-  })
+  const response = await api.get('/sessions/currentUser').catch(console.error)
   if (response) {
     store.state.currentUser = response.data
   }
-  if (to.name != 'signup' && !store.state.currentUser && !response) {
+
+  if (to.name != 'signup' && !store.state.currentUser) {
     return { name: 'signup' }
   }
   return
