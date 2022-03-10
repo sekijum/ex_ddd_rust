@@ -48,29 +48,29 @@ const router = useRouter()
 const signout = () => {
   store.state.currentUser = null
   identityManager.clearCredentials()
-  router.go({ name: 'signin', force: true })
+  router.push({ name: 'signin' })
 }
 const signin = () => {
-  router.go({ name: 'user', force: true })
+  router.push({ name: 'signin' })
 }
 
 const drawer = ref(false)
 const menuList = [
   {
-    icon: 'fa fa-inbox',
-    label: 'トップ',
+    icon: 'fa fa-home',
+    label: 'home',
     separator: true,
     to: '/',
   },
   {
     icon: 'fa fa-inbox',
-    label: '投稿',
+    label: 'post',
     separator: true,
     to: '/post',
   },
   {
     icon: 'mdi-account',
-    label: 'ユーザー',
+    label: 'user',
     separator: true,
     to: '/user',
   },

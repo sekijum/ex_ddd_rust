@@ -7,9 +7,12 @@
           <q-item-label>{{ item.name }}</q-item-label>
         </q-item-section>
         <div class="q-pa-md q-gutter-sm">
-          <nuxt-link to="/user/edit/name">
-            <q-btn outline style="color: goldenrod" label="変更" />
-          </nuxt-link>
+          <q-btn
+            outline
+            style="color: goldenrod"
+            label="変更"
+            @click="router.push({ name: 'user-edit', params: { type: 'NAME' } })"
+          />
         </div>
       </q-item>
     </q-list>
@@ -20,9 +23,12 @@
           <q-item-label>{{ item.email }}</q-item-label>
         </q-item-section>
         <div class="q-pa-md q-gutter-sm">
-          <nuxt-link to="/user/edit/email">
-            <q-btn outline style="color: goldenrod" label="変更" />
-          </nuxt-link>
+          <q-btn
+            outline
+            style="color: goldenrod"
+            label="変更"
+            @click="router.push({ name: 'user-edit', params: { type: 'EMAIL', id: item.id } })"
+          />
         </div>
       </q-item>
     </q-list>
@@ -33,9 +39,12 @@
           <q-item-label>********</q-item-label>
         </q-item-section>
         <div class="q-pa-md q-gutter-sm">
-          <nuxt-link to="/user/edit/password">
-            <q-btn outline style="color: goldenrod" label="変更" />
-          </nuxt-link>
+          <q-btn
+            outline
+            style="color: goldenrod"
+            label="変更"
+            @click="router.push({ name: 'user-edit', params: { type: 'PASSWORD' } })"
+          />
         </div>
       </q-item>
     </q-list>
@@ -44,6 +53,8 @@
 
 <script setup lang="ts">
 import { IUser } from '@/models/user'
+
+const router = useRouter()
 
 defineProps<{
   item: IUser

@@ -17,6 +17,7 @@
     "bulma": "^0.9.3",
     "ladash": "^1.2.0",
     "npm": "^8.5.1",
+    "nuxt-route-meta": "^2.3.4",
     "quasar": "^2.5.5",
     "sass": "^1.49.8",
     "vee-validate": "^4.5.8",

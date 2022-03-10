@@ -1,9 +1,11 @@
+import { RouteLocationNormalized } from 'vue-router'
 import store from '@/store'
 
-export default defineNuxtPlugin((nuxtApp) => {
-  const router = useRouter()
+export default defineNuxtRouteMiddleware(async (to: RouteLocationNormalized) => {
+  const { currentUser } = useSession()
+  await currentUser()
 
-  if (!store.state.currentUser) {
-    return router.push({ name: 'signin' })
+  if (to.name != 'signin' && !store.state.currentUser) {
+    return { name: 'signin' }
   }
 })

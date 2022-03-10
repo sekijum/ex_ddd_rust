@@ -1,6 +1,6 @@
 <template>
   <div>
-    <CreateForm :form="post" @onSave="onSave" />
+    <CreateForm :form="form" @onSave="onSave" />
   </div>
 </template>
 <script setup lang="ts">
@@ -9,13 +9,13 @@ import { TPostForm } from '@/models/post'
 
 const { savePost } = usePost()
 
-const post = ref<TPostForm>({
+const form = ref<TPostForm>({
   title: undefined,
   content: undefined,
 })
 
 const onSave = async () => {
-  await savePost(post.value)
+  await savePost(form.value)
   useRouter().back()
 }
 </script>

@@ -1,5 +1,9 @@
 <template>
   <div class="box">
+    <p>
+      Amazonアカウントに関連付けられている名前を変更する場合は、下で変更を行うことができます。完了したら、[変更を保存]
+      ボタンをクリックしてください。
+    </p>
     <Form @submit="$emit('onSave')" :validation-schema="schema">
       <div class="ユーザーフォーム">
         <p class="control has-icons-left has-icons-right">
@@ -24,10 +28,13 @@
 </template>
 <script setup lang="ts">
 import { Field, Form, ErrorMessage } from 'vee-validate'
+import { IUser } from '@/models/user'
 
 const { schema } = useUserValidate()
 
-defineProps<{}>()
+defineProps<{
+  name: Pick<IUser, 'name'>
+}>()
 
 const onCancel = () => {
   useRouter().back()

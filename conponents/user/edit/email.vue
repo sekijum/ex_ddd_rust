@@ -1,5 +1,10 @@
 <template>
   <div class="box">
+    <p>
+      現在のEメールアドレス: jun200191@gmail.com
+      <br />
+      以下のアカウントに関連付ける新しいEメールアドレスを入力してください。このアドレスに認証コードが送信されます。
+    </p>
     <Form @submit="$emit('onSave')" :validation-schema="schema">
       <div class="field">
         <p class="control has-icons-left">
@@ -24,10 +29,13 @@
 </template>
 <script setup lang="ts">
 import { Field, Form, ErrorMessage } from 'vee-validate'
+import { IUser } from '@/models/user'
 
 const { schema } = useUserValidate()
 
-defineProps<{}>()
+defineProps<{
+  email: Pick<IUser, 'email'>
+}>()
 
 const onCancel = () => {
   useRouter().back()
