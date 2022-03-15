@@ -14,8 +14,4 @@
     </div>
   </div>
 </template>
-<script setup lang="ts">
-import api from '@/api.1'
-
-onMounted(async () => {})
-</script>
+<script setup lang="ts"></script>

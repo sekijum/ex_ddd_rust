@@ -4,6 +4,12 @@ import { defineNuxtConfig } from 'nuxt3'
 export default defineNuxtConfig({
   ssr: false,
   target: 'static',
+  vite: {
+    optimizeDeps: {
+      exclude: ['date-fns'],
+      include: ['cookie'],
+    },
+  },
   publicRuntimeConfig: {
     ApibaseUrl: process.env.API_BASE_URL,
     ApiProtocol: process.env.NUXT_APP_API_PROTOCOL,

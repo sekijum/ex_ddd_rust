@@ -54,6 +54,9 @@ const signin = () => {
   router.push({ name: 'signin' })
 }
 
+// const { currentUser } = useSession()
+// await currentUser()
+
 const drawer = ref(false)
 const menuList = [
   {

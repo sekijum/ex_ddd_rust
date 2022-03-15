@@ -6,8 +6,6 @@ import { IUser } from '@/models/user'
 import { ISignin } from '@/models/session'
 
 export const useSession = () => {
-  const me = ref<IUser>()
-
   const signin = async (form: ISignin) => {
     const response = await api.post<any>('/sessions/signin', form).catch((error) => {
       if (error.response.status === 401) {
@@ -27,7 +25,7 @@ export const useSession = () => {
   }
 
   const currentUser = async () => {
-    const response = await api.get('/sessions/currentUser').catch(console.error)
+    const response = await api.get<IUser>('/sessions/currentUser').catch(console.error)
     if (response) {
       store.state.currentUser = response.data
     }

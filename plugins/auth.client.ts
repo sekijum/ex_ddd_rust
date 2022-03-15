@@ -3,6 +3,7 @@ import store from '@/store'
 
 async function beforeRouting(to: RouteLocationNormalized) {
   const { currentUser } = useSession()
+
   await currentUser()
 
   if (to.name != 'signin' && !store.state.currentUser) {
