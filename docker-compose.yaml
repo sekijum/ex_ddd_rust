@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  api:
+    container_name: go-dev-api
+    build:
+      context: .
+      dockerfile: docker/go/Dockerfile
+    tty: true
+    init: true
+    volumes:
+      - .:/go/src/app
+    platform: linux/x86_64
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    networks:
+      net1:
+        ipv4_address: 192.168.10.20
+
+  db:
+    image: mysql:8
+    container_name: go-dev-db
+    platform: linux/x86_64
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: go_dev
+      MYSQL_USER: go_dev
+      MYSQL_PASSWORD: pass_go_dev
+      TZ: 'Asia/Tokyo'
+    command: >-
+      mysqld --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./docker/db/data:/var/lib/mysql
+      - ./docker/db/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./docker/db/sql:/docker-entrypoint-initdb.d
+    ports:
+      - 3306:3306
+    restart: always
+    networks:
+      net1:
+        ipv4_address: 192.168.10.30
+
+networks:
+  net1:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.10.0/24
