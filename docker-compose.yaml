@@ -9,7 +9,7 @@ services:
     tty: true
     init: true
     volumes:
-      - .:/go/src/app
+      - .:/go/src
     platform: linux/x86_64
     ports:
       - "3000:3000"
