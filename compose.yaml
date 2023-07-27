@@ -1,13 +1,45 @@
-version: '3.8'
+version: '3.7'
+
 services:
-  api:
+  rust:
     build:
       context: .
-      dockerfile: docker/api/Dockerfile
+      dockerfile: docker/rust/Dockerfile
     ports:
-      - '8080:8080'
+      - '8000:8000'
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - DATABASE_URL=postgres://192.168.10.20:5432/ex_rust?user=sa&password=Ninja
     tty: true
-    init: true
-    privileged: true
     volumes:
-      - ./:/var/www:cached
+      - ./:/work
+    networks:
+      net1:
+        ipv4_address: 192.168.10.10
+
+  db:
+    image: postgres:14-alpine
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: sa
+      POSTGRES_PASSWORD: Ninja
+      POSTGRES_DB: ex_rust
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      net1:
+        ipv4_address: 192.168.10.20
+
+networks:
+  net1:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.10.0/24

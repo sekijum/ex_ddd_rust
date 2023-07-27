@@ -1,10 +1,10 @@
 {
-	"name": "ex-rust",
+	"name": "ex_rust",
 	"dockerComposeFile": [
 		"../compose.yaml"
 	],
-	"service": "api",
-	"workspaceFolder": "/var/www",
+	"service": "rust",
+	"workspaceFolder": "/work",
 	"extensions": [
 		"rust-lang.rust-analyzer",
 		"vadimcn.vscode-lldb",
