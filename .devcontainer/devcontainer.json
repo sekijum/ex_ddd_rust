@@ -1,0 +1,17 @@
+{
+	"name": "ex-rust",
+	"dockerComposeFile": [
+		"../compose.yaml"
+	],
+	"service": "api",
+	"workspaceFolder": "/var/www",
+	"extensions": [
+		"rust-lang.rust-analyzer",
+		"vadimcn.vscode-lldb",
+		"swellaby.vscode-rust-test-adapter",
+		"jscearcy.rust-doc-viewer",
+		"ritwickdey.liveserver",
+		"serayuzgur.crates",
+		"tamasfe.even-better-toml"
+	]
+}
